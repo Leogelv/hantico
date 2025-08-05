@@ -2,13 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { BriefingHeader } from './BriefingHeader';
 import { MessageList } from './MessageList';
 import { MessageInput } from './MessageInput';
-import { QuickTemplates } from './QuickTemplates';
+import { MobileNavigation } from '@/components/ui/mobile-navigation';
 import { useN8N } from '@/hooks/useN8N';
 import { Message } from '@/lib/types/briefing.types';
 
 export function BriefingChat() {
   const [messages, setMessages] = useState<Message[]>([]);
-  const [showTemplates, setShowTemplates] = useState(true);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [sessionId] = useState(() => `briefing_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`);
   
   const { sendTextMessage, sendAudioMessage, isLoading } = useN8N(sessionId);
@@ -30,7 +30,7 @@ export function BriefingChat() {
 - 🤖 Возможности AI-автоматизации
 - 🔗 Интеграции с вашими системами
 
-**Давайте начнем!** Расскажите о своей компании или выберите готовый вопрос ниже.`,
+**Давайте начнем!** Расскажите о своей компании и задачах.`,
       timestamp: new Date(),
       isMarkdown: true
     };
@@ -46,7 +46,6 @@ export function BriefingChat() {
     };
 
     setMessages(prev => [...prev, userMessage]);
-    setShowTemplates(false);
 
     // Отправляем в N8N и получаем ответ
     const aiResponse = await sendTextMessage(messageText);
@@ -75,7 +74,6 @@ export function BriefingChat() {
     };
 
     setMessages(prev => [...prev, userMessage]);
-    setShowTemplates(false);
 
     // Отправляем аудио в N8N
     const aiResponse = await sendAudioMessage(audioBlob);
@@ -106,15 +104,16 @@ export function BriefingChat() {
       
       <MessageList messages={messages} isLoading={isLoading} />
       
-      <QuickTemplates 
-        isVisible={showTemplates} 
-        onSelectTemplate={handleSendMessage}
-      />
-      
       <MessageInput 
         onSendMessage={handleSendMessage}
         onSendAudio={handleSendAudio}
         isLoading={isLoading}
+      />
+
+      {/* Мобильная навигация */}
+      <MobileNavigation 
+        isOpen={isMobileMenuOpen}
+        onToggle={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
       />
     </div>
   );
