@@ -1,0 +1,54 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#10B981;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#059669;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#8B5CF6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#EC4899;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bgGradient)"/>
+  
+  <!-- Pattern -->
+  <pattern id="dots" x="0" y="0" width="50" height="50" patternUnits="userSpaceOnUse">
+    <circle cx="25" cy="25" r="2" fill="white" opacity="0.1"/>
+  </pattern>
+  <rect width="1200" height="630" fill="url(#dots)"/>
+  
+  <!-- Logo background -->
+  <rect x="490" y="180" width="120" height="120" rx="24" fill="white" filter="drop-shadow(0 20px 40px rgba(0,0,0,0.15))"/>
+  
+  <!-- Logo icon -->
+  <rect x="510" y="200" width="80" height="80" rx="16" fill="url(#logoGradient)"/>
+  
+  <!-- DNA emoji (simplified as circles) -->
+  <circle cx="530" cy="220" r="8" fill="white" opacity="0.8"/>
+  <circle cx="570" cy="220" r="8" fill="white" opacity="0.8"/>
+  <circle cx="550" cy="240" r="8" fill="white" opacity="0.8"/>
+  <circle cx="530" cy="260" r="8" fill="white" opacity="0.8"/>
+  <circle cx="570" cy="260" r="8" fill="white" opacity="0.8"/>
+  
+  <!-- AI Badge -->
+  <rect x="480" y="120" width="140" height="40" rx="20" fill="url(#logoGradient)" filter="drop-shadow(0 4px 15px rgba(139,92,246,0.3))"/>
+  <text x="550" y="145" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="18" font-weight="bold">🤖 Powered by AI</text>
+  
+  <!-- Main title -->
+  <text x="600" y="380" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="72" font-weight="bold" filter="drop-shadow(0 4px 8px rgba(0,0,0,0.3))">Self-Zenith</text>
+  
+  <!-- Subtitle -->
+  <text x="600" y="430" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="36" opacity="0.9" filter="drop-shadow(0 2px 4px rgba(0,0,0,0.2))">Персональный ассистент здоровья</text>
+  
+  <!-- Features -->
+  <rect x="200" y="480" width="200" height="60" rx="16" fill="rgba(255,255,255,0.15)" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+  <text x="300" y="520" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="18" font-weight="600">📊 Анализ документов</text>
+  
+  <rect x="450" y="480" width="200" height="60" rx="16" fill="rgba(255,255,255,0.15)" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+  <text x="550" y="520" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="18" font-weight="600">🎯 Персональные советы</text>
+  
+  <rect x="700" y="480" width="200" height="60" rx="16" fill="rgba(255,255,255,0.15)" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+  <text x="800" y="520" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="18" font-weight="600">🗺️ Карта здоровья</text>
+</svg>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OG Image Generator</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+            width: 1200px;
+            height: 630px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .bg-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            opacity: 0.1;
+            background-image: 
+                radial-gradient(circle at 25% 25%, white 2px, transparent 2px),
+                radial-gradient(circle at 75% 75%, white 1px, transparent 1px);
+            background-size: 50px 50px, 30px 30px;
+        }
+        
+        .container {
+            text-align: center;
+            z-index: 2;
+            max-width: 900px;
+            padding: 60px;
+        }
+        
+        .logo {
+            width: 120px;
+            height: 120px;
+            background: white;
+            border-radius: 24px;
+            margin: 0 auto 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+        
+        .logo-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #10B981, #059669);
+            border-radius: 16px;
+            position: relative;
+        }
+        
+        .logo-icon::before {
+            content: '🧬';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 40px;
+        }
+        
+        h1 {
+            font-size: 72px;
+            font-weight: bold;
+            color: white;
+            margin: 0 0 24px 0;
+            text-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            line-height: 1.1;
+        }
+        
+        .subtitle {
+            font-size: 36px;
+            color: white;
+            margin: 0 0 40px 0;
+            opacity: 0.9;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .features {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 40px;
+        }
+        
+        .feature {
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            padding: 20px 30px;
+            border-radius: 16px;
+            color: white;
+            font-size: 18px;
+            font-weight: 600;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .ai-badge {
+            background: linear-gradient(90deg, #8B5CF6, #EC4899);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-size: 20px;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-pattern"></div>
+    <div class="container">
+        <div class="logo">
+            <div class="logo-icon"></div>
+        </div>
+        
+        <div class="ai-badge">🤖 Powered by AI</div>
+        
+        <h1>Self-Zenith</h1>
+        <div class="subtitle">Персональный ассистент здоровья</div>
+        
+        <div class="features">
+            <div class="feature">📊 Анализ документов</div>
+            <div class="feature">🎯 Персональные советы</div>
+            <div class="feature">🗺️ Карта здоровья</div>
+        </div>
+    </div>
+</body>
+</html>
