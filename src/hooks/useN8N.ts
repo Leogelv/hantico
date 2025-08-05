@@ -85,6 +85,8 @@ export function useN8N(sessionId: string) {
       formData.append('stage', 'briefing_audio');
       formData.append('timestamp', new Date().toISOString());
 
+      console.log('🎤 Отправляем аудио в n8n');
+
       const response = await fetch(N8N_AUDIO_WEBHOOK_URL, {
         method: 'POST',
         body: formData,
@@ -96,8 +98,43 @@ export function useN8N(sessionId: string) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
-      const result = await response.json();
-      return result.response || '## Голосовое сообщение получено! 🎤\n\nЯ обработаю аудио и отвечу на ваш вопрос.';
+      const text = await response.text();
+      console.log('🎵 Сырой аудио ответ:', text);
+
+      let aiResponseText = '## Голосовое сообщение получено! 🎤\n\nЯ обработаю аудио и отвечу на ваш вопрос.';
+      
+      if (text) {
+        try {
+          const result = JSON.parse(text);
+          
+          // Обрабатываем различные форматы ответа от n8n (такой же как у текста)
+          if (Array.isArray(result) && result.length > 0) {
+            // Если массив с comment в первом элементе
+            if (result[0].comment) {
+              aiResponseText = result[0].comment;
+            }
+            // Если массив с output в первом элементе
+            else if (result[0].output) {
+              const parsedOutput = JSON.parse(result[0].output);
+              aiResponseText = parsedOutput.comment || parsedOutput.response || aiResponseText;
+            }
+          } 
+          // Если объект с comment
+          else if (result.comment) {
+            aiResponseText = result.comment;
+          } 
+          // Если объект с response
+          else if (result.response) {
+            aiResponseText = result.response;
+          }
+        } catch (jsonError) {
+          console.error('❌ Ошибка парсинга аудио JSON:', jsonError);
+          // Пробуем использовать текст как есть
+          aiResponseText = text;
+        }
+      }
+
+      return aiResponseText;
     } catch (error) {
       console.error('❌ Ошибка отправки аудио:', error);
       setError('Ошибка при отправке аудио');
