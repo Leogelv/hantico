@@ -125,9 +125,9 @@ export function MessageItem({ message }: MessageItemProps) {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5 }}
+              className="prose prose-sm max-w-none"
             >
               <ReactMarkdown 
-                className="prose prose-sm max-w-none"
                 components={{
                   h1: ({children}) => (
                     <motion.h1 
