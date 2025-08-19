@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Чек-лист запуска MVP: Медицинское приложение</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f7f9;
+            color: #333;
+        }
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .progress-container {
+            background: #f8f9fa;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+        
+        .progress-stats {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            background: #e9ecef;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: #3498db;
+            transition: width 0.3s ease;
+            text-align: center;
+            color: white;
+            font-size: 12px;
+            line-height: 20px;
+        }
+        
+        h1, h2, h3 {
+            color: #2c3e50;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 10px;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .phase {
+            margin-bottom: 40px;
+        }
+        .category {
+            margin-top: 20px;
+            padding-left: 20px;
+            border-left: 3px solid #3498db;
+        }
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        li {
+            margin-bottom: 12px;
+            display: flex;
+            align-items: flex-start;
+        }
+        input[type="checkbox"] {
+            margin-right: 15px;
+            margin-top: 5px;
+            min-width: 18px;
+            min-height: 18px;
+        }
+        label {
+            display: block;
+        }
+        .details {
+            font-size: 0.9em;
+            color: #7f8c8d;
+            padding-left: 33px;
+            margin-top: -8px;
+        }
+        .sub-checklist {
+            list-style-type: none;
+            padding-left: 35px;
+            margin-top: 8px;
+        }
+        .sub-checklist li {
+            font-size: 0.95em;
+        }
+        
+        .controls {
+            margin-top: 30px;
+            text-align: center;
+        }
+        
+        .controls button {
+            margin: 0 10px;
+            padding: 8px 16px;
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        .controls button:hover {
+            background: #2980b9;
+        }
+        
+        .save-notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #27ae60;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 4px;
+            display: none;
+        }
+        
+        .save-notification.show {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="save-notification" id="saveNotification">
+        Прогресс сохранен
+    </div>
+
+    <div class="container">
+        <div class="progress-container">
+            <div class="progress-stats">
+                <span>Общий прогресс: <strong id="totalProgress">0%</strong></span>
+                <span>Выполнено: <strong id="completedTasks">0</strong> из <strong id="totalTasks">0</strong></span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill">0%</div>
+            </div>
+        </div>
+
+        <h1>Детализированный чек-лист запуска MVP: Медицинское приложение</h1>
+
+        <div class="phase">
+            <h2>Фаза 0: Интеграции и платежные системы</h2>
+            
+            <div class="category">
+                <h3>0.1. Платежные системы</h3>
+                <ul>
+                    <li><input type="checkbox" id="pay1"><label for="pay1"><strong>ЮKassa (основная платежная система)</strong></label></li>
+                    <ul class="sub-checklist">
+                        <li><input type="checkbox" id="pay1_1"><label for="pay1_1">Зарегистрировать юридическое лицо/ИП в ЮKassa</label></li>
+                        <li><input type="checkbox" id="pay1_2"><label for="pay1_2">Пройти идентификацию и предоставить документы</label></li>
+                        <li><input type="checkbox" id="pay1_3"><label for="pay1_3">Получить shopId (идентификатор магазина)</label></li>
+                        <li><input type="checkbox" id="pay1_4"><label for="pay1_4">Получить секретный ключ API</label></li>
+                        <li><input type="checkbox" id="pay1_5"><label for="pay1_5">Настроить вебхуки для уведомлений о платежах</label></li>
+                        <li><input type="checkbox" id="pay1_6"><label for="pay1_6">Настроить тестовую среду для разработки</label></li>
+                        <li><input type="checkbox" id="pay1_7"><label for="pay1_7">Подключить необходимые способы оплаты (карты, электронные кошельки)</label></li>
+                        <li><input type="checkbox" id="pay1_8"><label for="pay1_8">Настроить возвраты и холдирование средств</label></li>
+                    </ul>
+                    
+                    <li><input type="checkbox" id="pay2"><label for="pay2"><strong>CloudPayments (резервная система)</strong></label></li>
+                    <ul class="sub-checklist">
+                        <li><input type="checkbox" id="pay2_1"><label for="pay2_1">Зарегистрировать аккаунт в CloudPayments</label></li>
+                        <li><input type="checkbox" id="pay2_2"><label for="pay2_2">Получить Public ID</label></li>
+                        <li><input type="checkbox" id="pay2_3"><label for="pay2_3">Получить API Secret</label></li>
+                        <li><input type="checkbox" id="pay2_4"><label for="pay2_4">Настроить URL для уведомлений</label></li>
+                        <li><input type="checkbox" id="pay2_5"><label for="pay2_5">Настроить рекуррентные платежи для подписок</label></li>
+                        <li><input type="checkbox" id="pay2_6"><label for="pay2_6">Протестировать 3D-Secure</label></li>
+                    </ul>
+                </ul>
+            </div>
+            
+            <div class="category">
+                <h3>0.2. Telegram Bot и Mini App</h3>
+                <ul>
+                    <li><input type="checkbox" id="tg1"><label for="tg1">Зарегистрировать бота через @BotFather</label></li>
+                    <li><input type="checkbox" id="tg2"><label for="tg2">Получить Bot Token</label></li>
+                    <li><input type="checkbox" id="tg3"><label for="tg3">Настроить Webhook URL для бота</label></li>
+                    <li><input type="checkbox" id="tg4"><label for="tg4">Создать Web App через @BotFather</label></li>
+                    <li><input type="checkbox" id="tg5"><label for="tg5">Получить Web App URL</label></li>
+                    <li><input type="checkbox" id="tg6"><label for="tg6">Настроить домен и SSL-сертификат для Mini App</label></li>
+                    <li><input type="checkbox" id="tg7"><label for="tg7">Интегрировать Telegram Login Widget</label></li>
+                    <li><input type="checkbox" id="tg8"><label for="tg8">Настроить валидацию initData</label></li>
+                </ul>
+            </div>
+            
+            <div class="category">
+                <h3>0.3. AI и ML сервисы</h3>
+                <ul>
+                    <li><input type="checkbox" id="ai1"><label for="ai1"><strong>OpenAI API</strong></label></li>
+                    <ul class="sub-checklist">
+                        <li><input type="checkbox" id="ai1_1"><label for="ai1_1">Создать аккаунт OpenAI</label></li>
+                        <li><input type="checkbox" id="ai1_2"><label for="ai1_2">Получить API Key</label></li>
+                        <li><input type="checkbox" id="ai1_3"><label for="ai1_3">Настроить Organization ID</label></li>
+                        <li><input type="checkbox" id="ai1_4"><label for="ai1_4">Установить лимиты расходов</label></li>
+                        <li><input type="checkbox" id="ai1_5"><label for="ai1_5">Настроить rate limiting</label></li>
+                    </ul>
+                    
+                    <li><input type="checkbox" id="ai2"><label for="ai2"><strong>Google Cloud Vision API (для OCR)</strong></label></li>
+                    <ul class="sub-checklist">
+                        <li><input type="checkbox" id="ai2_1"><label for="ai2_1">Создать проект в Google Cloud Console</label></li>
+                        <li><input type="checkbox" id="ai2_2"><label for="ai2_2">Включить Cloud Vision API</label></li>
+                        <li><input type="checkbox" id="ai2_3"><label for="ai2_3">Создать Service Account</label></li>
+                        <li><input type="checkbox" id="ai2_4"><label for="ai2_4">Скачать JSON-ключ для аутентификации</label></li>
+                        <li><input type="checkbox" id="ai2_5"><label for="ai2_5">Настроить квоты и алерты</label></li>
+                    </ul>
+                </ul>
+            </div>
+            
+            <div class="category">
+                <h3>0.4. Инфраструктура и хостинг</h3>
+                <ul>
+                    <li><input type="checkbox" id="infra1"><label for="infra1"><strong>Основной хостинг</strong></label></li>
+                    <ul class="sub-checklist">
+                        <li><input type="checkbox" id="infra1_1"><label for="infra1_1">Выбрать и настроить VPS/Cloud провайдера</label></li>
+                        <li><input type="checkbox" id="infra1_2"><label for="infra1_2">Настроить Docker и docker-compose</label></li>
+                        <li><input type="checkbox" id="infra1_3"><label for="infra1_3">Настроить Nginx/Caddy для reverse proxy</label></li>
+                        <li><input type="checkbox" id="infra1_4"><label for="infra1_4">Получить и настроить SSL-сертификаты (Let's Encrypt)</label></li>
+                        <li><input type="checkbox" id="infra1_5"><label for="infra1_5">Настроить CI/CD pipeline (GitHub Actions/GitLab CI)</label></li>
+                    </ul>
+                    
+                    <li><input type="checkbox" id="infra2"><label for="infra2"><strong>База данных</strong></label></li>
+                    <ul class="sub-checklist">
+                        <li><input type="checkbox" id="infra2_1"><label for="infra2_1">Настроить PostgreSQL/MongoDB</label></li>
+                        <li><input type="checkbox" id="infra2_2"><label for="infra2_2">Настроить резервное копирование БД</label></li>
+                        <li><input type="checkbox" id="infra2_3"><label for="infra2_3">Настроить Redis для кэширования</label></li>
+                        <li><input type="checkbox" id="infra2_4"><label for="infra2_4">Создать staging и production окружения</label></li>
+                    </ul>
+                    
+                    <li><input type="checkbox" id="infra3"><label for="infra3"><strong>Мониторинг и логирование</strong></label></li>
+                    <ul class="sub-checklist">
+                        <li><input type="checkbox" id="infra3_1"><label for="infra3_1">Настроить Sentry для отслеживания ошибок</label></li>
+                        <li><input type="checkbox" id="infra3_2"><label for="infra3_2">Настроить Google Analytics/Яндекс.Метрику</label></li>
+                        <li><input type="checkbox" id="infra3_3"><label for="infra3_3">Настроить Amplitude/Mixpanel для продуктовой аналитики</label></li>
+                        <li><input type="checkbox" id="infra3_4"><label for="infra3_4">Настроить алерты о критических ошибках</label></li>
+                    </ul>
+                </ul>
+            </div>
+            
+            <div class="category">
+                <h3>0.5. Email и коммуникации</h3>
+                <ul>
+                    <li><input type="checkbox" id="email1"><label for="email1">Настроить SMTP-сервер или сервис (SendGrid/Mailgun)</label></li>
+                    <li><input type="checkbox" id="email2"><label for="email2">Получить API ключи для email-сервиса</label></li>
+                    <li><input type="checkbox" id="email3"><label for="email3">Настроить SPF, DKIM, DMARC записи для домена</label></li>
+                    <li><input type="checkbox" id="email4"><label for="email4">Создать шаблоны транзакционных писем</label></li>
+                    <li><input type="checkbox" id="email5"><label for="email5">Настроить Firebase/OneSignal для push-уведомлений</label></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="phase">
+            <h2>Фаза 1: Подготовка к запуску (Pre-Launch)</h2>
+
+            <div class="category">
+                <h3>1.1. Планирование и Управление</h3>
+                <ul>
+                    <li><input type="checkbox" id="task1"><label for="task1">Финализировать и заморозить скоуп задач для MVP.</label></li>
+                    <li><input type="checkbox" id="task2"><label for="task2">Настроить систему управления задачами (Jira, Asana, Kaiten и т.д.).</label></li>
+                    <li><input type="checkbox" id="task3"><label for="task3">Распределить задачи по спринтам (Спринт 1: 3 нед., Спринт 2: 3 нед., Спринт 3: 2 нед.).</label></li>
+                    <li><input type="checkbox" id="task4"><label for="task4">Назначить ответственных за каждый User Flow и компонент.</label></li>
+                </ul>
+            </div>
+
+            <div class="category">
+                <h3>1.2. Дизайн и Контент</h3>
+                <ul>
+                    <li><input type="checkbox" id="task5"><label for="task5">Согласовать финальный UI/UX дизайн всех экранов.</label>
+                        <ul class="sub-checklist">
+                            <li><input type="checkbox" id="sub_design1"><label for="sub_design1"><strong>Блок 1: Онбординг</strong></label>
+                                <ul class="sub-checklist">
+                                    <li><input type="checkbox" id="sub_design1_1"><label for="sub_design1_1">Welcome Screen (с анимациями)</label></li>
+                                    <li><input type="checkbox" id="sub_design1_2"><label for="sub_design1_2">Экран выбора целей (Goals Selection)</label></li>
+                                    <li><input type="checkbox" id="sub_design1_3"><label for="sub_design1_3">Пре-экран и основной экран чата-анамнеза</label></li>
+                                    <li><input type="checkbox" id="sub_design1_4"><label for="sub_design1_4">Экран загрузки анализов (File Upload)</label></li>
+                                </ul>
+                            </li>
+                            <li><input type="checkbox" id="sub_design2"><label for="sub_design2"><strong>Блок 2: Основное приложение</strong></label>
+                                <ul class="sub-checklist">
+                                    <li><input type="checkbox" id="sub_design2_1"><label for="sub_design2_1">Главный экран / Дашборд (персонализированный)</label></li>
+                                    <li><input type="checkbox" id="sub_design2_2"><label for="sub_design2_2">Экран результатов анализов (с pop-up деталями)</label></li>
+                                    <li><input type="checkbox" id="sub_design2_3"><label for="sub_design2_3">Экран полного плана (с вкладками и ачивками)</label></li>
+                                    <li><input type="checkbox" id="sub_design2_4"><label for="sub_design2_4">Экран AI-ассистента (3 вкладки)</label></li>
+                                    <li><input type="checkbox" id="sub_design2_5"><label for="sub_design2_5">Экран профиля</label></li>
+                                    <li><input type="checkbox" id="sub_design2_6"><label for="sub_design2_6">Экран базы знаний / Статьи</label></li>
+                                </ul>
+                            </li>
+                            <li><input type="checkbox" id="sub_design3"><label for="sub_design3"><strong>Блок 3: Монетизация</strong></label>
+                                 <ul class="sub-checklist">
+                                    <li><input type="checkbox" id="sub_design3_1"><label for="sub_design3_1">Экран с описанием тарифов (Free, Premium, Personal)</label></li>
+                                    <li><input type="checkbox" id="sub_design3_2"><label for="sub_design3_2">Интерфейс платежного шлюза</label></li>
+                                    <li><input type="checkbox" id="sub_design3_3"><label for="sub_design3_3">Экраны успеха/ошибки оплаты</label></li>
+                                </ul>
+                            </li>
+                             <li><input type="checkbox" id="sub_design4"><label for="sub_design4"><strong>Общие компоненты и состояния</strong></label>
+                                 <ul class="sub-checklist">
+                                     <li><input type="checkbox" id="sub_design4_1"><label for="sub_design4_1">Все Pop-up окна и модальные диалоги</label></li>
+                                     <li><input type="checkbox" id="sub_design4_2"><label for="sub_design4_2">Состояния загрузки (loaders, skeletons)</label></li>
+                                     <li><input type="checkbox" id="sub_design4_3"><label for="sub_design4_3">Пустые состояния (e.g., "У вас пока нет планов")</label></li>
+                                     <li><input type="checkbox" id="sub_design4_4"><label for="sub_design4_4">UI Kit (кнопки, поля ввода, чекбоксы, иконки)</label></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li><input type="checkbox" id="task6"><label for="task6">Подготовить все текстовые материалы (копирайтинг).</label>
+                        <ul class="sub-checklist">
+                            <li><input type="checkbox" id="sub_copy1"><label for="sub_copy1"><strong>Тексты для онбординга:</strong> приветствие, описание шагов, польза каждого этапа.</label></li>
+                            <li><input type="checkbox" id="sub_copy2"><label for="sub_copy2"><strong>Тексты для кнопок (CTA):</strong> "Продолжить", "Загрузить анализ", "Перейти к плану", "Оформить подписку" и т.д.</label></li>
+                            <li><input type="checkbox" id="sub_copy3"><label for="sub_copy3"><strong>Заголовки и описания для всех экранов.</strong></label></li>
+                            <li><input type="checkbox" id="sub_copy4"><label for="sub_copy4"><strong>Тексты-подсказки (Tooltips):</strong> объяснения для мед. показателей, функций, разделов плана.</label></li>
+                            <li><input type="checkbox" id="sub_copy5"><label for="sub_copy5"><strong>Системные сообщения:</strong></label>
+                                <ul class="sub-checklist">
+                                    <li><input type="checkbox" id="sub_copy5_1"><label for="sub_copy5_1">Успех: "Анализ успешно загружен!", "План обновлен", "Подписка оформлена".</label></li>
+                                    <li><input type="checkbox" id="sub_copy5_2"><label for="sub_copy5_2">Ошибки: "Неверный формат файла", "Не удалось распознать документ", "Проблема с оплатой".</label></li>
+                                    <li><input type="checkbox" id="sub_copy5_3"><label for="sub_copy5_3">Предупреждения и валидация форм.</label></li>
+                                </ul>
+                            </li>
+                            <li><input type="checkbox" id="sub_copy6"><label for="sub_copy6"><strong>Email и Push-уведомления:</strong></label>
+                                <ul class="sub-checklist">
+                                    <li><input type="checkbox" id="sub_copy6_1"><label for="sub_copy6_1">Приветственное письмо после регистрации.</label></li>
+                                    <li><input type="checkbox" id="sub_copy6_2"><label for="sub_copy6_2">Напоминания о задачах в плане (ежедневные/еженедельные).</label></li>
+                                    <li><input type="checkbox" id="sub_copy6_3"><label for="sub_copy6_3">Транзакционные письма (чек об оплате, подтверждение подписки).</label></li>
+                                    <li><input type="checkbox" id="sub_copy6_4"><label for="sub_copy6_4">Реактивационные письма (если пользователь долго не заходил).</label></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li><input type="checkbox" id="task7"><label for="task7">Подготовить контент для Базы Знаний и AI.</label>
+                        <ul class="sub-checklist">
+                            <li><input type="checkbox" id="sub_content1"><label for="sub_content1"><strong>Медицинские показатели:</strong></label>
+                                <ul class="sub-checklist">
+                                    <li><input type="checkbox" id="sub_content1_1"><label for="sub_content1_1">Собрать полный список показателей из <a href="https://docs.google.com/spreadsheets/d/14FERUnb0x-TnvQlnSsK00Ui1mvnsuf3FE_7QgBCEAB4/edit#gid=2139090588">Google-таблицы</a>.</label></li>
+                                    <li><input type="checkbox" id="sub_content1_2"><label for="sub_content1_2">Написать подробное описание "Что это за показатель?" для каждого.</label></li>
+                                    <li><input type="checkbox" id="sub_content1_3"><label for="sub_content1_3">Указать референсные значения (нормы) для разных полов и возрастов.</label></li>
+                                    <li><input type="checkbox" id="sub_content1_4"><label for="sub_content1_4">Написать интерпретацию "О чем говорит отклонение?".</label></li>
+                                </ul>
+                            </li>
+                             <li><input type="checkbox" id="sub_content2"><label for="sub_content2"><strong>"Микросхемы" (универсальные протоколы):</strong></label>
+                                <ul class="sub-checklist">
+                                    <li><input type="checkbox" id="sub_content2_1"><label for="sub_content2_1">Разработать контент для протокола "При ОРВИ".</label></li>
+                                    <li><input type="checkbox" id="sub_content2_2"><label for="sub_content2_2">Разработать контент для протокола "При бессоннице".</label></li>
+                                    <li><input type="checkbox" id="sub_content2_3"><label for="sub_content2_3">Разработать контент для еще 1-3 протоколов (e.g., стресс, восстановление после тренировки).</label></li>
+                                </ul>
+                            </li>
+                             <li><input type="checkbox" id="sub_content3"><label for="sub_content3"><strong>Контент для AI и онбординга:</strong></label>
+                                <ul class="sub-checklist">
+                                    <li><input type="checkbox" id="sub_content3_1"><label for="sub_content3_1">Предоставить финальный список 5+ целей в позитивной формулировке.</label></li>
+                                    <li><input type="checkbox" id="sub_content3_2"><label for="sub_content3_2">Утвердить 10 вопросов для AI-анамнеза из <a href="https://drive.google.com/file/d/1nkb49Ly6wrbHowyq_eX0p58wTX-LE8Li/view">базы знаний</a>.</label></li>
+                                    <li><input type="checkbox" id="sub_content3_3"><label for="sub_content3_3">Предоставить варианты ответов (пресеты) для вопросов, где это применимо.</label></li>
+                                    <li><input type="checkbox" id="sub_content3_4"><label for="sub_content3_4">Предоставить методологию интерпретации анализов для обучения AI.</label></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="category">
+                <h3>1.3. Разработка (Backend)</h3>
+                <ul>
+                    <li><input type="checkbox" id="task8"><label for="task8">Настроить архитектуру сервера и базу данных.</label></li>
+                    <li><input type="checkbox" id="task9"><label for="task9">Реализовать API для регистрации и аутентификации пользователей.</label></li>
+                    <li><input type="checkbox" id="task10"><label for="task10">Реализовать API для онбординга (сохранение целей, ответов анамнеза).</label></li>
+                    <li><input type="checkbox" id="task11"><label for="task11">Настроить интеграцию с AI-сервисом для анализа документов.</label></li>
+                    <li><input type="checkbox" id="task12"><label for="task12">Настроить интеграцию с AI-ассистентом (чат).</label></li>
+                    <li><input type="checkbox" id="task13"><label for="task13">Реализовать API для генерации и управления планами восстановления.</label></li>
+                    <li><input type="checkbox" id="task14"><label for="task14">Настроить интеграцию с платежным шлюзом для подписок.</label></li>
+                    <li><input type="checkbox" id="task15"><label for="task15">Разработать бэкенд для Админ-панели.</label></li>
+                </ul>
+            </div>
+
+            <div class="category">
+                <h3>1.4. Разработка (Frontend - Telegram Mini App)</h3>
+                <ul>
+                    <li><input type="checkbox" id="task16"><label for="task16"><strong>Спринт 1:</strong> Разработать User Flow 1 (Онбординг) и User Flow 2 (Анализ).</label>
+                    <div class="details">Welcome Screen, выбор целей, чат-анамнез, загрузка файлов, экран результатов анализа.</div></li>
+                    <li><input type="checkbox" id="task17"><label for="task17"><strong>Спринт 2:</strong> Разработать User Flow 3 (План) и User Flow 4 (AI-ассистент).</label>
+                    <div class="details">Главный экран с планом, трекинг, геймификация, детализация задач, чат с AI.</div></li>
+                    <li><input type="checkbox" id="task18"><label for="task18"><strong>Спринт 3:</strong> Разработать Монетизацию и остальные экраны.</label>
+                    <div class="details">Экран подписки, интеграция оплаты, профиль, база знаний.</div></li>
+                    <li><input type="checkbox" id="task19"><label for="task19">Реализовать обработку ошибок на клиенте (проблемы с сетью, ошибки API).</label></li>
+                    <li><input type="checkbox" id="task20"><label for="task20">Адаптировать интерфейс под разные размеры экранов.</label></li>
+                </ul>
+            </div>
+
+            <div class="category">
+                <h3>1.5. Разработка (Admin Panel)</h3>
+                <ul>
+                    <li><input type="checkbox" id="task21"><label for="task21">Реализовать Дашборд с ключевыми метриками.</label></li>
+                    <li><input type="checkbox" id="task22"><label for="task22">Реализовать модуль управления пользователями.</label></li>
+                    <li><input type="checkbox" id="task23"><label for="task23">Реализовать модуль просмотра диалогов с AI и дообучения.</label></li>
+                    <li><input type="checkbox" id="task24"><label for="task24">Реализовать CMS для управления контентом (статьи, цели, показатели).</label></li>
+                </ul>
+            </div>
+
+             <div class="category">
+                <h3>1.6. Тестирование (QA)</h3>
+                <ul>
+                    <li><input type="checkbox" id="task25"><label for="task25">Провести полное тестирование User Flow 1: Онбординг.</label></li>
+                    <li><input type="checkbox" id="task26"><label for="task26">Провести полное тестирование User Flow 2: Анализ документов.</label>
+                    <div class="details">Загрузка разных форматов (PDF, JPG, PNG), проверка корректности парсинга.</div></li>
+                    <li><input type="checkbox" id="task27"><label for="task27">Провести полное тестирование User Flow 3: Персональный план.</label></li>
+                    <li><input type="checkbox" id="task28"><label for="task28">Провести полное тестирование User Flow 4: AI-ассистент.</label></li>
+                    <li><input type="checkbox" id="task29"><label for="task29">Провести тестирование процесса оплаты и управления подпиской.</label></li>
+                    <li><input type="checkbox" id="task30"><label for="task30">Провести тестирование Админ-панели.</label></li>
+                    <li><input type="checkbox" id="task31"><label for="task31">Провести нагрузочное тестирование API.</label></li>
+                     <li><input type="checkbox" id="task32"><label for="task32">Провести тестирование безопасности.</label></li>
+                </ul>
+            </div>
+
+            <div class="category">
+                <h3>1.7. Юридические и организационные вопросы</h3>
+                <ul>
+                    <li><input type="checkbox" id="task33"><label for="task33">Подготовить "Пользовательское соглашение" (Terms of Service).</label></li>
+                    <li><input type="checkbox" id="task34"><label for="task34">Подготовить "Политику конфиденциальности" (Privacy Policy).</label></li>
+                    <li><input type="checkbox" id="task35"><label for="task35">Обеспечить соответствие требованиям хранения персональных и медицинских данных.</label></li>
+                    <li><input type="checkbox" id="task36"><label for="task36">Настроить систему аналитики (Amplitude, Mixpanel и т.д.).</label></li>
+                    <li><input type="checkbox" id="task37"><label for="task37">Подготовить каналы поддержки пользователей (email, чат-бот).</label></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="phase">
+            <h2>Фаза 2: Запуск (Launch)</h2>
+            <div class="category">
+                <h3>2.1. Технический запуск</h3>
+                <ul>
+                    <li><input type="checkbox" id="launch1"><label for="launch1">Провести финальное регрессионное тестирование на staging-среде.</label></li>
+                    <li><input type="checkbox" id="launch2"><label for="launch2">Сделать резервную копию базы данных и систем.</label></li>
+                    <li><input type="checkbox" id="launch3"><label for="launch3">Развернуть бэкенд на production-сервере.</label></li>
+                    <li><input type="checkbox" id="launch4"><label for="launch4">Опубликовать Telegram Mini App.</label></li>
+                    <li><input type="checkbox" id="launch5"><label for="launch5">Провести smoke-тест на production: создать нового пользователя, пройти онбординг, оплатить подписку.</label></li>
+                </ul>
+            </div>
+
+            <div class="category">
+                <h3>2.2. Маркетинговый запуск</h3>
+                <ul>
+                    <li><input type="checkbox" id="launch6"><label for="launch6">Опубликовать анонс о запуске в социальных сетях и на сайте.</label></li>
+                    <li><input type="checkbox" id="launch7"><label for="launch7">Запустить заранее подготовленные рекламные кампании.</label></li>
+                    <li><input type="checkbox" id="launch8"><label for="launch8">Начать активное взаимодействие с первыми пользователями.</label></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="phase">
+            <h2>Фаза 3: После запуска (Post-Launch)</h2>
+            <div class="category">
+                <h3>3.1. Мониторинг и поддержка</h3>
+                <ul>
+                    <li><input type="checkbox" id="post1"><label for="post1">Настроить и отслеживать мониторинг состояния серверов (uptime, нагрузка, ошибки).</label></li>
+                    <li><input type="checkbox" id="post2"><label for="post2">Ежедневно проверять логи на наличие критических ошибок.</label></li>
+                    <li><input type="checkbox" id="post3"><label for="post3">Отслеживать ключевые метрики продукта в системе аналитики (регистрации, конверсии, удержание).</label></li>
+                    <li><input type="checkbox" id="post4"><label for="post4">Оперативно отвечать на запросы в службу поддержки.</label></li>
+                </ul>
+            </div>
+            <div class="category">
+                <h3>3.2. Сбор обратной связи и итерации</h3>
+                <ul>
+                    <li><input type="checkbox" id="post5"><label for="post5">Активно собирать обратную связь от первых пользователей.</label></li>
+                    <li><input type="checkbox" id="post6"><label for="post6">Анализировать диалоги пользователей с AI-ассистентом для выявления проблем и инсайтов.</label></li>
+                    <li><input type="checkbox" id="post7"><label for="post7">Сформировать бэклог на основе обратной связи и данных аналитики.</label></li>
+                    <li><input type="checkbox" id="post8"><label for="post8">Планировать следующие спринты для исправления багов и реализации новых функций.</label></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="controls">
+            <button onclick="exportProgress()">Экспорт прогресса</button>
+            <button onclick="importProgress()">Импорт прогресса</button>
+            <button onclick="clearProgress()">Сбросить все</button>
+        </div>
+    </div>
+
+    <script>
+        // Настройка API endpoint - измените на ваш домен после деплоя на Vercel
+        const API_URL = window.location.hostname === 'localhost' 
+            ? 'http://localhost:3000/api/checklist'
+            : '/api/checklist';
+        
+        let isSaving = false;
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            loadProgressFromServer();
+            
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', function() {
+                    saveProgressToServer();
+                    updateProgress();
+                });
+            });
+        });
+        
+        // Загрузка прогресса с сервера
+        async function loadProgressFromServer() {
+            try {
+                const response = await fetch(API_URL);
+                if (response.ok) {
+                    const data = await response.json();
+                    if (data.progress) {
+                        applyProgress(data.progress);
+                        updateProgress();
+                        console.log('Прогресс загружен с сервера');
+                    }
+                } else {
+                    console.error('Ошибка загрузки с сервера, используем локальное хранилище');
+                    loadProgressFromLocal();
+                }
+            } catch (error) {
+                console.error('Ошибка подключения к серверу:', error);
+                loadProgressFromLocal();
+            }
+        }
+        
+        // Сохранение прогресса на сервер
+        async function saveProgressToServer() {
+            if (isSaving) return;
+            isSaving = true;
+            
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            const progress = {};
+            
+            checkboxes.forEach(checkbox => {
+                progress[checkbox.id] = checkbox.checked;
+            });
+            
+            // Сохраняем локально сразу
+            localStorage.setItem('mvpChecklistProgress', JSON.stringify(progress));
+            localStorage.setItem('mvpChecklistLastSave', new Date().toISOString());
+            
+            try {
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ progress })
+                });
+                
+                if (response.ok) {
+                    showSaveNotification('Сохранено на сервере');
+                } else {
+                    console.error('Ошибка сохранения на сервер');
+                    showSaveNotification('Сохранено локально');
+                }
+            } catch (error) {
+                console.error('Ошибка подключения к серверу:', error);
+                showSaveNotification('Сохранено локально');
+            } finally {
+                isSaving = false;
+            }
+        }
+        
+        // Применение прогресса к чекбоксам
+        function applyProgress(progress) {
+            Object.keys(progress).forEach(id => {
+                const checkbox = document.getElementById(id);
+                if (checkbox) {
+                    checkbox.checked = progress[id];
+                }
+            });
+        }
+        
+        // Загрузка из локального хранилища (fallback)
+        function loadProgressFromLocal() {
+            const savedProgress = localStorage.getItem('mvpChecklistProgress');
+            if (savedProgress) {
+                const progress = JSON.parse(savedProgress);
+                applyProgress(progress);
+                updateProgress();
+                console.log('Прогресс загружен из локального хранилища');
+            }
+        }
+        
+        // Обновление статистики прогресса
+        function updateProgress() {
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            const totalTasks = checkboxes.length;
+            const completedTasks = Array.from(checkboxes).filter(cb => cb.checked).length;
+            const progressPercent = Math.round((completedTasks / totalTasks) * 100);
+            
+            document.getElementById('totalTasks').textContent = totalTasks;
+            document.getElementById('completedTasks').textContent = completedTasks;
+            document.getElementById('totalProgress').textContent = progressPercent + '%';
+            
+            const progressFill = document.getElementById('progressFill');
+            progressFill.style.width = progressPercent + '%';
+            progressFill.textContent = progressPercent + '%';
+        }
+        
+        // Уведомление о сохранении
+        function showSaveNotification(message = 'Прогресс сохранен') {
+            const notification = document.getElementById('saveNotification');
+            notification.textContent = message;
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 2000);
+        }
+        
+        // Экспорт прогресса
+        async function exportProgress() {
+            try {
+                const response = await fetch(API_URL);
+                const data = await response.json();
+                
+                const dataStr = JSON.stringify(data, null, 2);
+                const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+                
+                const exportFileDefaultName = `mvp-checklist-${new Date().toISOString().slice(0,10)}.json`;
+                
+                const linkElement = document.createElement('a');
+                linkElement.setAttribute('href', dataUri);
+                linkElement.setAttribute('download', exportFileDefaultName);
+                linkElement.click();
+            } catch (error) {
+                console.error('Ошибка экспорта:', error);
+                alert('Ошибка при экспорте данных');
+            }
+        }
+        
+        // Импорт прогресса
+        function importProgress() {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = '.json';
+            
+            input.onchange = function(e) {
+                const file = e.target.files[0];
+                const reader = new FileReader();
+                
+                reader.onload = async function(event) {
+                    try {
+                        const importData = JSON.parse(event.target.result);
+                        
+                        if (importData.progress) {
+                            applyProgress(importData.progress);
+                            updateProgress();
+                            await saveProgressToServer();
+                            alert('Прогресс успешно импортирован и сохранен на сервере');
+                        }
+                    } catch (error) {
+                        alert('Ошибка при импорте файла');
+                    }
+                };
+                
+                reader.readAsText(file);
+            };
+            
+            input.click();
+        }
+        
+        // Сброс прогресса
+        async function clearProgress() {
+            if (confirm('Вы уверены, что хотите сбросить весь прогресс?')) {
+                const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+                checkboxes.forEach(checkbox => {
+                    checkbox.checked = false;
+                });
+                
+                await saveProgressToServer();
+                updateProgress();
+            }
+        }
+        
+        // Автосохранение каждые 30 секунд
+        setInterval(() => {
+            saveProgressToServer();
+        }, 30000);
+        
+        // Синхронизация с сервером каждые 60 секунд
+        setInterval(() => {
+            loadProgressFromServer();
+        }, 60000);
+    </script>
+</body>
+</html>

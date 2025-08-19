@@ -1,5 +1,14 @@
 {
+  "functions": {
+    "api/checklist.js": {
+      "maxDuration": 10
+    }
+  },
   "rewrites": [
+    {
+      "source": "/checklist",
+      "destination": "/docs/kaztrans/check.html/check.html"
+    },
     {
       "source": "/(.*)",
       "destination": "/index.html"
